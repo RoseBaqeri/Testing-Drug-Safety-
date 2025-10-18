@@ -115,6 +115,55 @@ plt.show()
 
 # lets us know be able to visualize the protportion of severe cases from those reported
 
+# ===================== 5. Two subplots side by side =====================
+
+age_bins = np.linspace(age.min(), age.max(), 10)
+weight_bins = np.linspace(weight.min(), weight.max(), 10)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.hist(age, bins=age_bins, color='lightblue', edgecolor='black')
+ax1.set_title('Distribution of Patient Ages')
+ax1.set_xlabel('Patient Age (years)')
+ax1.set_ylabel('Frequency')
+ax1.grid(True)
+
+
+ax2.hist(weight, bins=weight_bins, color='darkred', edgecolor='black')
+ax2.set_title('Distribution of Patient Weights')
+ax2.set_xlabel('Patient Weight (kg)')
+ax2.set_ylabel('Frequency')
+ax2.grid(True)
+
+
+fig.suptitle('Patient Age and Weight Distributions (Two Subplots Side by Side)')
+plt.tight_layout()
+plt.show()
+
+#this figure contains two subplots side by side. to the left: histogram of patient ages. to the right: histogram of patient weights.
+#this helps visualize how these two key variables are distributed within the dataset.
+
+# ===================== 4. Multiple arrays in one plot (different colours & line styles =====================
+
+x = np.arange(len(age))
+
+age_smooth = pd.Series(age).rolling(window=10).mean()
+weight_smooth = pd.Series(weight).rolling(window=10).mean()
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, age_smooth, color='green', linestyle='-', label='Average Patient Age')
+plt.plot(x, weight_smooth, color='pink', linestyle='--', label='Average Patient Weight')
+
+plt.title('Comparison of Patient Age and Weight Trends')
+plt.xlabel('Sample Index')
+plt.ylabel('Value')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+#this plot compares two different numeric variables from the dataset - patient age and patient weight.
+#Both are plotted on the same axes with distinct colours and line styles to highlight their differences.
 
 
 
