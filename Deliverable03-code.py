@@ -15,13 +15,13 @@
 # 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
 # 5. Are there differences in the types of adverse reactions reported by males and females?
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
   
 # 3. Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
 # 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
 # 5. Are there differences in the types of adverse reactions reported by males and females?
 
-==========
+#==========
     # ===================== Importing Modules =====================
 
 import json
@@ -65,7 +65,7 @@ df = df.drop(columns=['safetyreportversion','transmissiondateformat','receivedat
     'reportduplicate.duplicatenumb','reportduplicate','patient.reaction','patient.drug'])
 
 #there already was a a column in our dataset mentioning if the case was a duplicate, but i decided to ignore it in favor of folowing the instructions.
-<<<<<<< HEAD
+#<<<<<<< HEAD
 
 print('DUPLICATED SUM:', df.duplicated().sum())
 print('------------------------------------------------------')
@@ -73,7 +73,7 @@ print('------------------------------------------------------')
 df = df.drop_duplicates()
 
 print("DF after duplicates dropped", df.duplicated().sum())   
-=======
+#=======
 
 print('DUPLICATED SUM:', df.duplicated().sum())
 print('------------------------------------------------------')
@@ -162,9 +162,9 @@ for col in categorical_cols:
     print('------------------------------------------------------')
    
    
-<<<<<<< HEAD
+#<<<<<<< HEAD
  # =============================================================================================================================================================================================       
-=======
+#=======
     
 # =============================================================================================================================================================================================       
 # 4. UNIVARIATE GRAPHICAL EDA
@@ -225,7 +225,7 @@ for col in num_cols_for_histogram:
    # Questions answered in the document *** 
     
  # ===========================   
-<<<<<<< HEAD
+#<<<<<<< HEAD
            
 # 5. MULTIVARIATE NON-GRAPHICAL EDA
 
@@ -251,19 +251,30 @@ for col in num_cols_for_histogram:
 
     
     # a) A plot using Faceting feature (col parameter in the relplot() function)
-
+    sns.relplot(data=df, x='patient.patientonsetage', y='patient.patientweight', hue='serious', col='patient.patientsex', kind='scatter')
+    plt.suptitle("Age vs Weight by Sex and Seriousness", y=1.1)
 
     # b) A plot representing 5 variables at once (x, y, hue, size, col)
-    
+    sns.relplot(data=df, x='patient.patientonsetage', y='patient.patientweight', hue='serious', size='seriousnesshospitalization', col='patient.patientsex', kind='scatter')
+    plt.suptitle("Age-Weight-Seriousness-Hospitalization by Sex", y=1.1)
     
     # c) A plot using line instead of points (find a variable that makes sense emphasizing continuity and explain why)
-    
+    sns.lineplot(data=df, x="patient.patientonsetage", y="patient.patientweight", errorbar=None)
+    plt.xlabel("Patient Onset Age")
+    plt.ylabel("Patient Weight")
+    plt.title("Mean Patient Weight Across Age (Continuous Relationship)")
+    #Weight and age are both continuous variables and the only two variables in the dataset that arent binary.
+    #A line plot emphasizes how weight changes progressively with age
     
     # d) A plot illustrating standard deviation
-    
+    sns.pointplot(data=df, x='patient.patientsex', y='patient.patientweight', errorbar="sd")
+    plt.xlabel("Patient Sex")
+    plt.ylabel("Patient Weight")
+    plt.title("Mean Weight by Sex with SD Error Bars", y=1.1)
     
     # e) A plot including a linear regression
-    
+    sns.lmplot(data=df, x='patient.patientonsetage', y='patient.patientweight', hue="serious")
+    plt.title("Linear Regression: Age vs Weight by Seriousness", y=1.1)
     
     
 # 6.2. Visualizing categorical data (10 plots):
