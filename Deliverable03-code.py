@@ -202,4 +202,68 @@ for col in categorical_cols:
 
 
 
+# 6. MULTIVRIATE GRAPHICAL EDA
+
+# 6.1. Visualizing Statistical Relationships (5 plots):
     
+    # a) A plot using Faceting feature (col parameter in the relplot() function)
+
+
+    # b) A plot representing 5 variables at once (x, y, hue, size, col)
+    
+    
+    # c) A plot using line instead of points (find a variable that makes sense emphasizing continuity and explain why)
+    
+    
+    # d) A plot illustrating standard deviation
+    
+    
+    # e) A plot including a linear regression
+    
+    
+    
+# 6.2. Visualizing categorical data (10 plots):
+    
+    #ANSWERING: Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
+    
+    # a) 1 categorical scatter plot with jitter enabled
+    
+sns.catplot(data = df, x = "occurcountry", y = "")
+    
+    # b) 1 categorical scatter plot with jitter disabled (explain your choice of variable for this one)
+    
+    
+    # c) 1 "beeswarm" plot representing 3 variables
+    
+    
+    # d) 1 box plot representing 3 variables
+    
+    
+    # e) 1 box plot showing the shape of the distribution (boxenplot())
+    
+    
+    # f) 1 split violin plot representing 3 variables with bandwidth adjusted for better visualization
+    
+    
+    # g) 1 violin plot with scatter points inside the violin shapes
+    
+    
+    # h) 1 bar plot representing 3 variables showing 97% confidence intervals
+    
+    
+    # i) 1 point plot representing 3 variables showing 90% confidence intervals and lines in dashed style
+    
+    
+    # j) 1 bar plot showing the number of observations in each category
+    
+    
+    
+# 6.3. Visualizing Bivariate Distributions (3 plots):
+    
+    # a) 1 "heatmap" plot representing 2 variables with colour intensity bar and adjusted bin width
+    
+    
+    # b) 1 distribution plot with 2 variables making use of bivariate density contours with amount of curves and its lowest level adjusted (use a kernel density estimation displot())
+    
+    
+    # c) 1 "heatmap" plot representing 3 variables, again of kind kde
