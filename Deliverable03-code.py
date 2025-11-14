@@ -7,18 +7,13 @@
 # 1. POSSIBLE QUESTIONS TO ANSWER:
 
 # 1. Does patient age influence the seriousness of adverse drug reactions?
-
-
-# 2. Are there differences in the types of adverse reactions reported by males and females?
-
-
-# 3. Which countries report the highest proportion of serious adverse events?
-
-
+    #see pt4
+# 2. How do patient weight distributions differ between patients who experienced serious vs. non-serious reactions?
+    #see pt4
+    
+# 3. Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
 # 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
-
-
-# 5. Which drugs are most frequently associated with hospitalization or other serious outcomes?
+# 5. Are there differences in the types of adverse reactions reported by males and females?
 
     
     # ===================== Importing Modules =====================
@@ -34,6 +29,7 @@ import numpy as np
 data = json.load(open('drug-event-0012-of-0031.json'))
 df = pd.json_normalize(data['results'])
 
+# =============================================================================================================================================================================================       
     
 # 2. PRELIMINARY STEPS
 
@@ -110,7 +106,7 @@ for col in categorical_cols:
     df[col] = df[col].astype('object')
     
     
-    
+# =============================================================================================================================================================================================           
 # 3. UNIVARIATE NON-GRAPHICAL EDA
 
 print('PART 3 - a) ============================================================================') 
@@ -130,7 +126,7 @@ for col in num_cols:
     print("3rd QUARTILE; (0.75):", df[col].quantile(0.75))
     print('------------------------------------------------------') # used to seperate each result from the loops
 
-## 
+## used a loop beaucause of the many numerical columns. added titles for clarity in results. 
 
 print('PART 3 - a) ============================================================================')
 
@@ -143,57 +139,70 @@ for col in categorical_cols:
     print("NUMBER OF UNIQUE CATEGORIES:", df[col].nunique())
     print('------------------------------------------------------')
    
- ##
    
-    
+ # =============================================================================================================================================================================================       
 # 4. UNIVARIATE GRAPHICAL EDA
 
-    # a) Custom and appropriate number of bins
+df.loc[df['patient.patientonsetage'] > 100, 'patient.patientonsetage'] = df['patient.patientonsetage'].median()
+
+## after running the original code i noticed that the generated graphs were very dispered and had big extremeties, so i printed : print(sorted(df['patient.patientonsetage'].dropna().unique())) and receive the following floats above 100.0:
+# np.float64(219.0), np.float64(504.0), np.float64(618.0), np.float64(828.0), np.float64(849.0), np.float64(902.0), np.float64(937.0)]
+# considering that they are unrealistic, i decided to replace any result above 100 with the median, and basically consider it unknown or errors in result imput.
+# df. loc is a function i foud in pandas that lets you select rows and/or assign new values using conditions.
+
+num_cols_for_histogram = ['patient.patientonsetage', 'patient.patientweight'] #the rest of the numerical values in our dataset are binary (1/2) and when trying to plot them as histograms, the plots didn't tell us much.
+
+df['patient.patientsex'] = df['patient.patientsex'].replace({1: 'Male',2: 'Female',})
+
+df['serious'] = df['serious'].replace({1: 'Non-Serious',2: 'Serious'})
+
+# because of the binary nature of the results in the columns for severity and patient sex, i replaced the 1 and 2 with what they each represent, this way, when looking at the plots, we will know.
+
+for col in num_cols_for_histogram:
     
+    # a) Custom number of bins
+    sns.histplot(data=df, x=col, bins=20) # more bins so we can see the variations if any, more clearly
+    plt.title(col + " : Histogram (20 bins)") #using col, "" would give me and error so I had to use col + ""
+    plt.show()
     
-    
-    # b) Conditioning on other variables
-    
-    
+    # b) Conditioning on other variables (by sex)
+    sns.histplot(data=df, x=col, hue='patient.patientsex', bins=10)
+    plt.title(col + " : Histogram by Sex")
+    plt.show()
     
     # c) Stacked histogram
-    
-    
+    sns.histplot(data=df, x=col, hue='patient.patientsex',
+                 multiple="stack", bins=10)
+    plt.title(col + " : Stacked Histogram by Sex")
+    plt.show()
     
     # d) Dodge bars
-    
-    
+    sns.histplot(data=df, x=col, hue='patient.patientsex', multiple="dodge", bins=10)
+    plt.title(col + " : Dodge Histogram by Sex")
+    plt.show()
     
     # e) Normalized histogram statistics
+    sns.histplot(data=df, x=col, bins=10, stat="density")
+    plt.title(col + " : Normalized Histogram statistics")
+    plt.show()
     
+    # f) Kernel density estimation (KDE) with chosen bandwidth
+    sns.displot(data=df, x=col, hue='serious', kind='kde', bw_adjust=0.6 ) # 0.6 bandwith shows the trend clearly but still with some precision
+    plt.title(col + " : KDE by severity (bw_adjust = 0.6)")
+    plt.show()
     
+    # g) Empirical cumulative distributions (ECDF)
+    sns.displot(data=df,hue='serious', x=col, kind='ecdf')
+    plt.title(col + " : ECDF by severity")
+    plt.show()
     
-    # f) Kernel density estimation (choosing the smoothing bandwidth)
-    
-    
-    
-    # g) Empirical cumulative distributions
-    
-    
-    
+   # Questions answered in the document *** 
     
  # ===========================   
         
-    # a) What is the distribution of the variable? (is the data normally distributed, skewed, bimodal, etc?)
+   
     
-    
-    # b) Are there any outliers? (are there extreme values that fall outside the typical range?)
-    
-    
-    # c) What is the spread and central tendency? (where is the median? How spread out is the data?)
-    
-    
-    # d) Is the data symmetric or skewed? (is the data skewed left or right?)
-    
-    
-    # e) How frequent are certain ranges of values? (which value ranges are most common?) 
-    
-    
+
 
 
 
