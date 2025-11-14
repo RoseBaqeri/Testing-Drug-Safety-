@@ -22,7 +22,6 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 
 
     # ===================== Importing Dataset to program:=====================
@@ -37,27 +36,36 @@ df = pd.json_normalize(data['results'])
 
 print('PART 2 - a) ============================================================================') # used to seperate each question results, without it the reslts were kind of confusing
 
-# print(df.head())
+print('HEAD:', df.head())
+print('------------------------------------------------------')
 
-# print(df.shape())
+print("SHAPE:", df.shape)
+print('------------------------------------------------------')
 
-# print(df.info())
+print("INFO:", df.info())
+print('------------------------------------------------------')
 
-# print(df.describe())
-
-
-
+print('DESCRIBE:', df.describe())
+print('------------------------------------------------------')
 
 
 # b) Handle duplicate entries
 
 print('PART 2 - b) ============================================================================')
 
-# print(df.duplicated().sum())
+### due to the nature of the json file i could not run the code without cleaning the df, instead of dropping the rows with missing values, i decided to remove the columns that all the column that we won't be using for outr analysis, preventing any errors that might come from them. i found the df.drop(column='') function for this
 
-# df = df.drop_duplicates()
+df = df.drop(columns=['safetyreportversion','transmissiondateformat','receivedateformat','receiptdateformat','sender.senderorganization','receiver.receiverorganization','companynumb','authoritynumb','fulfillexpeditecriteria','primarysource.literaturereference','patient.summary.narrativeincludeclinical','duplicate','reportduplicate.duplicatesource',
+    'reportduplicate.duplicatenumb','reportduplicate','patient.reaction','patient.drug'])
 
-# print(df.duplicated().sum())   
+#there already was a a column in our dataset mentioning if the case was a duplicate, but i decided to ignore it in favor of folowing the instructions.
+
+print('DUPLICATED SUM:', df.duplicated().sum())
+print('------------------------------------------------------')
+
+df = df.drop_duplicates()
+
+print("DF after duplicates dropped", df.duplicated().sum())   
 
 
 
@@ -210,5 +218,72 @@ for col in num_cols_for_histogram:
 
 
 
+#<<<<<<< HEAD
 
+
+# 6. MULTIVRIATE GRAPHICAL EDA
+
+# 6.1. Visualizing Statistical Relationships (5 plots):
+#>>>>>>> b66f9d1c08a514cc86932707f084845c1b33c4fc
     
+    # a) A plot using Faceting feature (col parameter in the relplot() function)
+
+
+    # b) A plot representing 5 variables at once (x, y, hue, size, col)
+    
+    
+    # c) A plot using line instead of points (find a variable that makes sense emphasizing continuity and explain why)
+    
+    
+    # d) A plot illustrating standard deviation
+    
+    
+    # e) A plot including a linear regression
+    
+    
+    
+# 6.2. Visualizing categorical data (10 plots):
+    
+    #ANSWERING: Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
+    
+    # a) 1 categorical scatter plot with jitter enabled
+    
+#sns.catplot(data = df, x = "occurcountry", y = "")
+    
+    # b) 1 categorical scatter plot with jitter disabled (explain your choice of variable for this one)
+    
+    
+    # c) 1 "beeswarm" plot representing 3 variables
+    
+    
+    # d) 1 box plot representing 3 variables
+    
+    
+    # e) 1 box plot showing the shape of the distribution (boxenplot())
+    
+    
+    # f) 1 split violin plot representing 3 variables with bandwidth adjusted for better visualization
+    
+    
+    # g) 1 violin plot with scatter points inside the violin shapes
+    
+    
+    # h) 1 bar plot representing 3 variables showing 97% confidence intervals
+    
+    
+    # i) 1 point plot representing 3 variables showing 90% confidence intervals and lines in dashed style
+    
+    
+    # j) 1 bar plot showing the number of observations in each category
+    
+    
+    
+# 6.3. Visualizing Bivariate Distributions (3 plots):
+    
+    # a) 1 "heatmap" plot representing 2 variables with colour intensity bar and adjusted bin width
+    
+    
+    # b) 1 distribution plot with 2 variables making use of bivariate density contours with amount of curves and its lowest level adjusted (use a kernel density estimation displot())
+    
+    
+    # c) 1 "heatmap" plot representing 3 variables, again of kind kde
