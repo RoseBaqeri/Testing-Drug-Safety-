@@ -17,7 +17,6 @@
 # 5. Are there differences in the types of adverse reactions reported by males and females?
 
 =======
->>>>>>> 94f51c238edfc9e91d80910554c46bd4a09585aa
     
 # 3. Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
 # 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
@@ -75,7 +74,6 @@ df = df.drop_duplicates()
 
 print("DF after duplicates dropped", df.duplicated().sum())   
 =======
->>>>>>> 94f51c238edfc9e91d80910554c46bd4a09585aa
 
 print('DUPLICATED SUM:', df.duplicated().sum())
 print('------------------------------------------------------')
@@ -169,7 +167,6 @@ for col in categorical_cols:
 =======
     
 # =============================================================================================================================================================================================       
->>>>>>> 94f51c238edfc9e91d80910554c46bd4a09585aa
 # 4. UNIVARIATE GRAPHICAL EDA
 
 df.loc[df['patient.patientonsetage'] > 100, 'patient.patientonsetage'] = df['patient.patientonsetage'].median()
@@ -228,13 +225,6 @@ for col in num_cols_for_histogram:
    # Questions answered in the document *** 
     
  # ===========================   
-<<<<<<< HEAD
-        
-   
-    
-=======
-           
->>>>>>> 94f51c238edfc9e91d80910554c46bd4a09585aa
 
 
 
@@ -243,13 +233,14 @@ for col in num_cols_for_histogram:
 
 
 
-#<<<<<<< HEAD
+
+
 
 
 # 6. MULTIVRIATE GRAPHICAL EDA
 
 # 6.1. Visualizing Statistical Relationships (5 plots):
-#>>>>>>> b66f9d1c08a514cc86932707f084845c1b33c4fc
+
     
     # a) A plot using Faceting feature (col parameter in the relplot() function)
 
@@ -273,7 +264,7 @@ for col in num_cols_for_histogram:
     
     # a) 1 categorical scatter plot with jitter enabled
     
-#sns.catplot(data = df, x = "occurcountry", y = "")
+sns.catplot(data = df, x = "occurcountry", y = "")
     
     # b) 1 categorical scatter plot with jitter disabled (explain your choice of variable for this one)
     
