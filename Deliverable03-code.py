@@ -281,33 +281,42 @@ for col in num_cols_for_histogram:
     
     #ANSWERING:  Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)??
     
+reduced_dataset = df.sample(1000)
+# There were too many points to plot. A reduced amount of random results from the dataset had to be used.
+# Similarly, the size of the points had to be modified and reduced for the same reason. This allowed a great number of results to remain shown on the plot.
+    
+    
     # a) 1 categorical scatter plot with jitter enabled
 df["receivedate"] = pd.to_datetime(df["receivedate"])
 
-sns.catplot(data = df, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], s=1)
-    
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], s=3)
+plt.title("Scatter Plot: Reporter Qualification vs Time Report Received")
+
     # b) 1 categorical scatter plot with jitter disabled (explain your choice of variable for this one)
-sns.catplot(data = df, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], jitter=False, s=1)
-    
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], jitter=False, s=3)
+plt.title("Scatter Plot: Reporter Qualification vs Time Report Received, no jitter")
+
 # Since primarysource.qualification is seperated into 6 categories, using a categorical scatter plot is the best way to visually understand which reporter's professional role took more time sending their reults. 
 # Whith jitter=False, the data is organized in a single clustered line per primarysource.qualification category and, therefore, a trend can be more easily established.
 
 
     # c) 1 "beeswarm" plot representing 3 variables
-sns.catplot(data = df, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], kind="swarm", s=1)
-    
-    # d) 1 box plot representing 3 variables
-Countries = df.groupby('occurountry')
-['seious'].value_counts().unstack()
-print(Countries)
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], kind="swarm", s=3)
+plt.title("Scatter Beeswarm Plot: Reporter Qualification vs Time Report Received")
 
-sns.catplot(data = df, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], kind="box")
-    
+
+    # d) 1 box plot representing 3 variables
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5"], kind="box", s=1)
+plt.title("Box Plot: Reporter Qualification vs Time Report Received")
+
     # e) 1 box plot showing the shape of the distribution (boxenplot())
-    
-    
+sns.catplot(data=reduced_dataset.query("primarysource.qualification != unknown"), x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5"], kind="box", s=1)
+plt.title("Box Plot showing distribution shape: Reporter Qualification vs Time Report Received")    
+
+
     # f) 1 split violin plot representing 3 variables with bandwidth adjusted for better visualization
-    
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5"], kind="violin", s=1, bw=0.5)
+plt.title("Box Plot showing distribution shape: Reporter Qualification vs Time Report Received") 
     
     # g) 1 violin plot with scatter points inside the violin shapes
     
