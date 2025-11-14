@@ -21,13 +21,13 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 
 
     # ===================== Importing Dataset to program:=====================
 data = json.load(open('drug-event-0012-of-0031.json'))
 df = pd.json_normalize(data['results'])
 
+# =============================================================================================================================================================================================       
     
 # 2. PRELIMINARY STEPS
 
@@ -35,28 +35,36 @@ df = pd.json_normalize(data['results'])
 
 print('PART 2 - a) ============================================================================') # used to seperate each question results, without it the reslts were kind of confusing
 
-# print(df.head())
+print('HEAD:', df.head())
+print('------------------------------------------------------')
 
-# print(df.shape())
+print("SHAPE:", df.shape)
+print('------------------------------------------------------')
 
-# print(df.info())
+print("INFO:", df.info())
+print('------------------------------------------------------')
 
-# print(df.describe())
-
-
-
+print('DESCRIBE:', df.describe())
+print('------------------------------------------------------')
 
 
 # b) Handle duplicate entries
 
 print('PART 2 - b) ============================================================================')
 
-# print(df.duplicated().sum())
+### due to the nature of the json file i could not run the code without cleaning the df, instead of dropping the rows with missing values, i decided to remove the columns that all the column that we won't be using for outr analysis, preventing any errors that might come from them. i found the df.drop(column='') function for this
 
-# df = df.drop_duplicates()
+df = df.drop(columns=['safetyreportversion','transmissiondateformat','receivedateformat','receiptdateformat','sender.senderorganization','receiver.receiverorganization','companynumb','authoritynumb','fulfillexpeditecriteria','primarysource.literaturereference','patient.summary.narrativeincludeclinical','duplicate','reportduplicate.duplicatesource',
+    'reportduplicate.duplicatenumb','reportduplicate','patient.reaction','patient.drug'])
 
-# print(df.duplicated().sum())   
+#there already was a a column in our dataset mentioning if the case was a duplicate, but i decided to ignore it in favor of folowing the instructions.
 
+print('DUPLICATED SUM:', df.duplicated().sum())
+print('------------------------------------------------------')
+
+df = df.drop_duplicates()
+
+print("DF after duplicates dropped", df.duplicated().sum())   
 
 
 # c) Identify and manage missing values
