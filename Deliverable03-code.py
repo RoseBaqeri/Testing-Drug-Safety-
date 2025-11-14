@@ -279,20 +279,29 @@ for col in num_cols_for_histogram:
     
 # 6.2. Visualizing categorical data (10 plots):
     
-    #ANSWERING: Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
+    #ANSWERING:  Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)??
     
     # a) 1 categorical scatter plot with jitter enabled
-    
-#sns.catplot(data = df, x = "occurcountry", y = "")
+df["receivedate"] = pd.to_datetime(df["receivedate"])
+
+sns.catplot(data = df, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], s=1)
     
     # b) 1 categorical scatter plot with jitter disabled (explain your choice of variable for this one)
+sns.catplot(data = df, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], jitter=False, s=1)
     
-    
+# Since primarysource.qualification is seperated into 6 categories, using a categorical scatter plot is the best way to visually understand which reporter's professional role took more time sending their reults. 
+# Whith jitter=False, the data is organized in a single clustered line per primarysource.qualification category and, therefore, a trend can be more easily established.
+
+
     # c) 1 "beeswarm" plot representing 3 variables
-    
+sns.catplot(data = df, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], kind="swarm", s=1)
     
     # d) 1 box plot representing 3 variables
-    
+Countries = df.groupby('occurountry')
+['seious'].value_counts().unstack()
+print(Countries)
+
+sns.catplot(data = df, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], kind="box")
     
     # e) 1 box plot showing the shape of the distribution (boxenplot())
     
