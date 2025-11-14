@@ -66,8 +66,8 @@ print('PART 2 - c) =============================================================
 for col in df.columns:
     print(col, df[col].isnull().sum())
     
-    ## we dicided to not use option a ; (drop rows with missing values), because our dataset contains reports about drug dafety. dropping rows would mean deleting real events/information.
-    ## We instead decided to use options b and c and filli in numerical missing values with mean/median and categorical missing values with strings.
+    ## we dicided to not use option a ; (drop rows with missing values), because our dataset contains reports about drug safety. dropping rows would mean deleting real events/information.
+    ## We instead decided to use options b and c and fill in numerical missing values with mean/median and categorical missing values with strings.
 
 # numeric    
 for col in df.columns:
@@ -148,7 +148,7 @@ df.loc[df['patient.patientonsetage'] > 100, 'patient.patientonsetage'] = df['pat
 ## after running the original code i noticed that the generated graphs were very dispered and had big extremeties, so i printed : print(sorted(df['patient.patientonsetage'].dropna().unique())) and receive the following floats above 100.0:
 # np.float64(219.0), np.float64(504.0), np.float64(618.0), np.float64(828.0), np.float64(849.0), np.float64(902.0), np.float64(937.0)]
 # considering that they are unrealistic, i decided to replace any result above 100 with the median, and basically consider it unknown or errors in result imput.
-# df. loc is a function i foud in pandas that lets you select rows and/or assign new values using conditions.
+# df. loc is a function i found in pandas that lets you select rows and/or assign new values using conditions.
 
 num_cols_for_histogram = ['patient.patientonsetage', 'patient.patientweight'] #the rest of the numerical values in our dataset are binary (1/2) and when trying to plot them as histograms, the plots didn't tell us much.
 
@@ -162,7 +162,7 @@ for col in num_cols_for_histogram:
     
     # a) Custom number of bins
     sns.histplot(data=df, x=col, bins=20) # more bins so we can see the variations if any, more clearly
-    plt.title(col + " : Histogram (20 bins)") #using col, "" would give me and error so I had to use col + ""
+    plt.title(col + " : Histogram (20 bins)") #using col, "" would give me an error so I had to use col + ""
     plt.show()
     
     # b) Conditioning on other variables (by sex)
@@ -200,15 +200,22 @@ for col in num_cols_for_histogram:
     
  # ===========================   
            
+# 5. MULTIVARIATE NON-GRAPHICAL EDA
+
+    # a, b)
+    sex_report = pd.crosstab(df["patient.patientsex"], df["reporttype"], normalize="index")*100
+    
+    primarysource = pd.crosstab(df["primarysourcecountry"], df["primarysource.qualification"], normalize="index")*100
+    
+    sender_receiver = pd.crosstab(df["sender.sendertype"], df["receiver.receivertype"], normalize="index")*100
+
+    # c) 
+    sex_report_country = pd.crosstab([df["patient.patientsex"], df["reporttype"]], df["primarysourcecountry"], normalize="index")*100
+    #this table shows how the combination of patient sex and report type varies across different countries
 
 
 
-
-
-
-
-
-# 6. MULTIVRIATE GRAPHICAL EDA
+# 6. MULTIVARIATE GRAPHICAL EDA
 
 # 6.1. Visualizing Statistical Relationships (5 plots):
     
@@ -234,7 +241,7 @@ for col in num_cols_for_histogram:
     
     # a) 1 categorical scatter plot with jitter enabled
     
-sns.catplot(data = df, x = "occurcountry", y = "")
+#sns.catplot(data = df, x = "occurcountry", y = "")
     
     # b) 1 categorical scatter plot with jitter disabled (explain your choice of variable for this one)
     
