@@ -15,19 +15,26 @@
 # 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
 # 5. Are there differences in the types of adverse reactions reported by males and females?
 
+<<<<<<< HEAD
+  
+# 3. Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
+# 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
+# 5. Are there differences in the types of adverse reactions reported by males and females?
+
+==========
     # ===================== Importing Modules =====================
 
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 
 
     # ===================== Importing Dataset to program:=====================
 data = json.load(open('drug-event-0012-of-0031.json'))
 df = pd.json_normalize(data['results'])
 
+# =============================================================================================================================================================================================       
     
 # 2. PRELIMINARY STEPS
 
@@ -35,28 +42,45 @@ df = pd.json_normalize(data['results'])
 
 print('PART 2 - a) ============================================================================') # used to seperate each question results, without it the reslts were kind of confusing
 
-# print(df.head())
+print('HEAD:', df.head())
+print('------------------------------------------------------')
 
-# print(df.shape())
+print("SHAPE:", df.shape)
+print('------------------------------------------------------')
 
-# print(df.info())
+print("INFO:", df.info())
+print('------------------------------------------------------')
 
-# print(df.describe())
-
-
-
+print('DESCRIBE:', df.describe())
+print('------------------------------------------------------')
 
 
 # b) Handle duplicate entries
 
 print('PART 2 - b) ============================================================================')
 
-# print(df.duplicated().sum())
+### due to the nature of the json file i could not run the code without cleaning the df, instead of dropping the rows with missing values, i decided to remove the columns that all the column that we won't be using for outr analysis, preventing any errors that might come from them. i found the df.drop(column='') function for this
 
-# df = df.drop_duplicates()
+df = df.drop(columns=['safetyreportversion','transmissiondateformat','receivedateformat','receiptdateformat','sender.senderorganization','receiver.receiverorganization','companynumb','authoritynumb','fulfillexpeditecriteria','primarysource.literaturereference','patient.summary.narrativeincludeclinical','duplicate','reportduplicate.duplicatesource',
+    'reportduplicate.duplicatenumb','reportduplicate','patient.reaction','patient.drug'])
 
-# print(df.duplicated().sum())   
+#there already was a a column in our dataset mentioning if the case was a duplicate, but i decided to ignore it in favor of folowing the instructions.
+<<<<<<< HEAD
 
+print('DUPLICATED SUM:', df.duplicated().sum())
+print('------------------------------------------------------')
+
+df = df.drop_duplicates()
+
+print("DF after duplicates dropped", df.duplicated().sum())   
+=======
+
+print('DUPLICATED SUM:', df.duplicated().sum())
+print('------------------------------------------------------')
+
+df = df.drop_duplicates()
+
+print("DF after duplicates dropped", df.duplicated().sum())   
 
 
 # c) Identify and manage missing values
@@ -104,7 +128,7 @@ for col in categorical_cols:
     df[col] = df[col].astype('object')
     
     
-    
+# =============================================================================================================================================================================================           
 # 3. UNIVARIATE NON-GRAPHICAL EDA
 
 print('PART 3 - a) ============================================================================') 
@@ -137,8 +161,10 @@ for col in categorical_cols:
     print("NUMBER OF UNIQUE CATEGORIES:", df[col].nunique())
     print('------------------------------------------------------')
    
- ##
    
+<<<<<<< HEAD
+ # =============================================================================================================================================================================================       
+=======
     
 # =============================================================================================================================================================================================       
 # 4. UNIVARIATE GRAPHICAL EDA
@@ -199,6 +225,7 @@ for col in num_cols_for_histogram:
    # Questions answered in the document *** 
     
  # ===========================   
+<<<<<<< HEAD
            
 # 5. MULTIVARIATE NON-GRAPHICAL EDA
 
@@ -215,9 +242,13 @@ for col in num_cols_for_histogram:
 
 
 
+
+
+
 # 6. MULTIVARIATE GRAPHICAL EDA
 
 # 6.1. Visualizing Statistical Relationships (5 plots):
+
     
     # a) A plot using Faceting feature (col parameter in the relplot() function)
 
