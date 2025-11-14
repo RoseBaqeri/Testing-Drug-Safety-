@@ -10,12 +10,19 @@
     #see pt4
 # 2. How do patient weight distributions differ between patients who experienced serious vs. non-serious reactions?
     #see pt4
+<<<<<<< HEAD
     
 # 3. Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
 # 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
 # 5. Are there differences in the types of adverse reactions reported by males and females?
 
+=======
+>>>>>>> 94f51c238edfc9e91d80910554c46bd4a09585aa
     
+# 3. Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
+# 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
+# 5. Are there differences in the types of adverse reactions reported by males and females?
+
     # ===================== Importing Modules =====================
 
 import json
@@ -59,6 +66,7 @@ df = df.drop(columns=['safetyreportversion','transmissiondateformat','receivedat
     'reportduplicate.duplicatenumb','reportduplicate','patient.reaction','patient.drug'])
 
 #there already was a a column in our dataset mentioning if the case was a duplicate, but i decided to ignore it in favor of folowing the instructions.
+<<<<<<< HEAD
 
 print('DUPLICATED SUM:', df.duplicated().sum())
 print('------------------------------------------------------')
@@ -66,7 +74,15 @@ print('------------------------------------------------------')
 df = df.drop_duplicates()
 
 print("DF after duplicates dropped", df.duplicated().sum())   
+=======
+>>>>>>> 94f51c238edfc9e91d80910554c46bd4a09585aa
 
+print('DUPLICATED SUM:', df.duplicated().sum())
+print('------------------------------------------------------')
+
+df = df.drop_duplicates()
+
+print("DF after duplicates dropped", df.duplicated().sum())   
 
 
 # c) Identify and manage missing values
@@ -132,7 +148,7 @@ for col in num_cols:
     print("1st QUARTILE; (0.25):", df[col].quantile(0.25))
     print("2nd QUARTILE; (0.50):", df[col].quantile(0.50))
     print("3rd QUARTILE; (0.75):", df[col].quantile(0.75))
-    print('------------------------------------------------------') # used to seperate each result from the loops
+    print('------------------------------------------------------') # used to sepperate each result from the loops
 
 ## used a loop beaucause of the many numerical columns. added titles for clarity in results. 
 
@@ -148,7 +164,12 @@ for col in categorical_cols:
     print('------------------------------------------------------')
    
    
+<<<<<<< HEAD
  # =============================================================================================================================================================================================       
+=======
+    
+# =============================================================================================================================================================================================       
+>>>>>>> 94f51c238edfc9e91d80910554c46bd4a09585aa
 # 4. UNIVARIATE GRAPHICAL EDA
 
 df.loc[df['patient.patientonsetage'] > 100, 'patient.patientonsetage'] = df['patient.patientonsetage'].median()
@@ -207,9 +228,13 @@ for col in num_cols_for_histogram:
    # Questions answered in the document *** 
     
  # ===========================   
+<<<<<<< HEAD
         
    
     
+=======
+           
+>>>>>>> 94f51c238edfc9e91d80910554c46bd4a09585aa
 
 
 
