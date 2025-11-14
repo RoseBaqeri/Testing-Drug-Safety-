@@ -3,7 +3,23 @@
     Lauralie Tremblay """
     
     ## DELIVERABLE 03 
-    
+
+# 1. POSSIBLE QUESTIONS TO ANSWER:
+
+# 1. Does patient age influence the seriousness of adverse drug reactions?
+
+
+# 2. Are there differences in the types of adverse reactions reported by males and females?
+
+
+# 3. Which countries report the highest proportion of serious adverse events?
+
+
+# 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
+
+
+# 5. Which drugs are most frequently associated with hospitalization or other serious outcomes?
+
     
     # ===================== Importing Modules =====================
 
@@ -23,13 +39,15 @@ df = pd.json_normalize(data['results'])
 
 # a) Initial data inspection
 
-print(df.head())
+print('PART 2 - a) ============================================================================') # used to seperate each question results, without it the reslts were kind of confusing
 
-print(df.shape())
+# print(df.head())
 
-print(df.info())
+# print(df.shape())
 
-print(df.describe())
+# print(df.info())
+
+# print(df.describe())
 
 
 
@@ -37,15 +55,19 @@ print(df.describe())
 
 # b) Handle duplicate entries
 
-print(df.duplicated().sum())
+print('PART 2 - b) ============================================================================')
 
-df = df.drop_duplicates()
+# print(df.duplicated().sum())
 
-print(df.duplicated().sum())   
+# df = df.drop_duplicates()
+
+# print(df.duplicated().sum())   
 
 
 
 # c) Identify and manage missing values
+
+print('PART 2 - c) ============================================================================')
 
 for col in df.columns:
     print(col, df[col].isnull().sum())
@@ -60,6 +82,7 @@ for col in df.columns:
 
 #justification : The numerical variables in this dataset (ex// patient age & weight) are very skewed and contain outliers. Because the mean is very sensitive to extreme values, it would not represent the middle tendency accurately. so, we chose to fill numerical missing values using the median.
 
+
 # categorical        
 for col in df.columns:
     if df[col].dtype == 'object':   
@@ -68,8 +91,9 @@ for col in df.columns:
 #justification : replaced with “Unknown” so we can still analyze the reports (they remain complete)
 
 # d) Correct data types and formats: 
+
     
-num_cols = ['patient.patientonsetage', 'patient.patientweight','serious','seriousnessdeath','seriousnesslifethreatening','seriousnesshospitalization','seriousnessdisabling','seriousnesscongenitalanomaly','seriousnessother']
+num_cols = ['patient.patientonsetage', 'patient.patientweight','serious','seriousnessdeath','seriousnesslifethreatening','seriousnesshospitalization','seriousnessdisabling','seriousnessother']
 
 for col in num_cols:
     df[col] = pd.to_numeric(df[col], errors='coerce')
@@ -89,38 +113,38 @@ for col in categorical_cols:
     
 # 3. UNIVARIATE NON-GRAPHICAL EDA
 
-    # MEAN
-    
-    
-    # MEDIAN
-    
-    
-    # MODE
-    
-    
-    # STANDARD DEVIATION
-    
-    
-    # VARIANCE
-    
-    
-    # SKEWNESS
-    
-    
-    # JURTOSIS
-    
-    
-    # QUARTILES
-    
-    
-    # FREQUANCY COUNTS 
-    
-    
-    # PROPRTION
-    
-    
-    # MODE (MOST FREQUENT CATEGORY AND THE NUMBER OF UNIQUE CATEGORIES)
-    
+print('PART 3 - a) ============================================================================') 
+
+for col in num_cols:
+ 
+    print("Column Title:", col) # let's us know what numerical column the loop is on
+    print("MEAN:", df[col].mean())
+    print("MEDIAN:", df[col].median())
+    print("MODE:", df[col].mode()[0])
+    print("SD:", df[col].std())
+    print("VARIANCE:", df[col].var())
+    print("SKEWNESS:", df[col].skew())
+    print("KURTOSIS:", df[col].kurt())
+    print("1st QUARTILE; (0.25):", df[col].quantile(0.25))
+    print("2nd QUARTILE; (0.50):", df[col].quantile(0.50))
+    print("3rd QUARTILE; (0.75):", df[col].quantile(0.75))
+    print('------------------------------------------------------') # used to seperate each result from the loops
+
+## 
+
+print('PART 3 - a) ============================================================================')
+
+for col in categorical_cols:
+   
+   
+    print("FREQUENCY:", df[col].value_counts())
+    print("PROPORTIONS:", df[col].value_counts(normalize=True))
+    print("MODE: Most frequent category", df[col].mode()[0])
+    print("NUMBER OF UNIQUE CATEGORIES:", df[col].nunique())
+    print('------------------------------------------------------')
+   
+ ##
+   
     
 # 4. UNIVARIATE GRAPHICAL EDA
 
