@@ -281,7 +281,7 @@ for col in num_cols_for_histogram:
     
     #ANSWERING:  Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)??
     
-reduced_dataset = df.sample(1000)
+reduced_dataset = df.sample(500)
 # There were too many points to plot. A reduced amount of random results from the dataset had to be used.
 # Similarly, the size of the points had to be modified and reduced for the same reason. This allowed a great number of results to remain shown on the plot.
     
@@ -289,11 +289,11 @@ reduced_dataset = df.sample(1000)
     # a) 1 categorical scatter plot with jitter enabled
 df["receivedate"] = pd.to_datetime(df["receivedate"])
 
-sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], s=3)
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], s=4.5)
 plt.title("Scatter Plot: Reporter Qualification vs Time Report Received")
 
     # b) 1 categorical scatter plot with jitter disabled (explain your choice of variable for this one)
-sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], jitter=False, s=3)
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], jitter=False, s=4.5)
 plt.title("Scatter Plot: Reporter Qualification vs Time Report Received, no jitter")
 
 # Since primarysource.qualification is seperated into 6 categories, using a categorical scatter plot is the best way to visually understand which reporter's professional role took more time sending their reults. 
@@ -301,42 +301,59 @@ plt.title("Scatter Plot: Reporter Qualification vs Time Report Received, no jitt
 
 
     # c) 1 "beeswarm" plot representing 3 variables
-sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], kind="swarm", s=3)
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5", "Unknown"], kind="swarm", s=4.5)
 plt.title("Scatter Beeswarm Plot: Reporter Qualification vs Time Report Received")
 
 
-    # d) 1 box plot representing 3 variables
-sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5"], kind="box", s=1)
-plt.title("Box Plot: Reporter Qualification vs Time Report Received")
+    # d) 1 box plot representing 3 variables 
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5"], kind="box") 
+plt.title("Box Plot: Reporter Qualification vs Time Report Received") 
+# The variable 'unknown' primarysource.qualification was deemed unnecessary and disregarded in the plot.
 
-    # e) 1 box plot showing the shape of the distribution (boxenplot())
-sns.catplot(data=reduced_dataset.query("primarysource.qualification != unknown"), x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5"], kind="box", s=1)
-plt.title("Box Plot showing distribution shape: Reporter Qualification vs Time Report Received")    
+    # e) 1 box plot showing the shape of the distribution (boxenplot()) 
+sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5"], kind="boxen") 
+plt.title("Box Plot showing distribution shape: Reporter Qualification vs Time Report Received")  
 
 
-    # f) 1 split violin plot representing 3 variables with bandwidth adjusted for better visualization
-sns.catplot(data=reduced_dataset, x = "primarysource.qualification", y = "receivedate", order=["1", "2", "3", "4", "5"], kind="violin", s=1, bw=0.5)
-plt.title("Box Plot showing distribution shape: Reporter Qualification vs Time Report Received") 
-    
-    # g) 1 violin plot with scatter points inside the violin shapes
-    
-    
-    # h) 1 bar plot representing 3 variables showing 97% confidence intervals
-    
-    
-    # i) 1 point plot representing 3 variables showing 90% confidence intervals and lines in dashed style
-    
-    
-    # j) 1 bar plot showing the number of observations in each category
+
+#ANSWERING: Further exploring how patient weight associated with a certain country corrisponds to a serious condition or not.
+# Only the five more frequent countries were plotted to reduce the number of variables and to form a better and more precise visual representaion of the data.
+
+    # f) 1 split violin plot representing 3 variables with bandwidth adjusted for better visualization 
+sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight", kind="violin", order=["US", "CA", "GB", "JP", "CN"], bw=0.5, hue="serious") 
+plt.title("Violin Plot: Relationship between Country and Patient Weight showing Serious Cases")  
+
+    # g) 1 violin plot with scatter points inside the violin shapes 
+V = sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight",  order=["US", "CA", "GB", "JP", "CN"], kind="violin", bw=0.5, hue="serious") 
+sns.stripplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], s=3, ax=V.ax) 
+plt.title("Violin Scatter Plot: Reporter Qualification vs Time Report Received")  
+
+    # h) 1 bar plot representing 3 variables showing 97% confidence intervals 
+sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight",  order=["US", "CA", "GB", "JP", "CN"], errorbar=("pi",97), kind="bar", hue="serious") 
+plt.title("Bar Plot: Reporter Qualification vs Time Report Received by Serioussness")  
+
+    # i) 1 point plot representing 3 variables showing 90% confidence intervals and lines in dashed style 
+sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], errorbar=("pi",90), kind="point", hue="serious", linestyle=["--","--"]) 
+plt.title("Point Plot: Reporter Qualification vs Time Report Received by Serioussness")  
+
+    # j) 1 bar plot showing the number of observations in each category 
+sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], kind="bar", hue="serious", legend="full") 
+plt.title("Bar Plot Observations: Reporter Qualification vs Time Report Received by Serioussness")  
     
     
     
 # 6.3. Visualizing Bivariate Distributions (3 plots):
+    #ANSWERING: Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
+
     
     # a) 1 "heatmap" plot representing 2 variables with colour intensity bar and adjusted bin width
-    
+sns.displot(data=reduced_dataset, x = "primarysourcecountry", y = "serious", order=["US", "CA", "GB", "JP", "CN"], binwidth=0.5)
+plt.title("Heatmap: Frequency of Serious Cases in each Country")
     
     # b) 1 distribution plot with 2 variables making use of bivariate density contours with amount of curves and its lowest level adjusted (use a kernel density estimation displot())
-    
+sns.displot(data=reduced_dataset, x = "primarysourcecountry", y = "serious", order=["US", "CA", "GB", "JP", "CN"], kind="kde")
+plt.title("2D Density Heatmap: Frequency of Serious Cases in each Country")
     
     # c) 1 "heatmap" plot representing 3 variables, again of kind kde
+sns.displot(data=reduced_dataset, x = "primarysourcecountry", y = "serious", order=["US", "CA", "GB", "JP", "CN"], kind="kde", hue="patient.patientsex")
+plt.title("2D Density Heatmap: Frequency of Serious Cases in each Country by Patient Sexe")
