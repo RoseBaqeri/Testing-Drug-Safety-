@@ -281,7 +281,7 @@ for col in num_cols_for_histogram:
     
     #ANSWERING:  Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)??
     
-reduced_dataset = df.sample(500)
+reduced_dataset = df.sample(700)
 # There were too many points to plot. A reduced amount of random results from the dataset had to be used.
 # Similarly, the size of the points had to be modified and reduced for the same reason. This allowed a great number of results to remain shown on the plot.
     
@@ -316,44 +316,48 @@ plt.title("Box Plot showing distribution shape: Reporter Qualification vs Time R
 
 
 
-#ANSWERING: Further exploring how patient weight associated with a certain country corrisponds to a serious condition or not.
+#ANSWERING: Further exploring how patient weight associated with a certain country corresponds to a serious condition or not.
 # Only the five more frequent countries were plotted to reduce the number of variables and to form a better and more precise visual representaion of the data.
 
     # f) 1 split violin plot representing 3 variables with bandwidth adjusted for better visualization 
-sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight", kind="violin", order=["US", "CA", "GB", "JP", "CN"], bw=0.5, hue="serious") 
+sns.catplot(data=df, x = "primarysourcecountry", y = "patient.patientweight", kind="violin", order=["US", "CA", "GB", "JP", "CN"], bw_method=0.8, hue="serious") 
 plt.title("Violin Plot: Relationship between Country and Patient Weight showing Serious Cases")  
 
     # g) 1 violin plot with scatter points inside the violin shapes 
-V = sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight",  order=["US", "CA", "GB", "JP", "CN"], kind="violin", bw=0.5, hue="serious") 
-sns.stripplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], s=3, ax=V.ax) 
-plt.title("Violin Scatter Plot: Reporter Qualification vs Time Report Received")  
+V = sns.catplot(data=df, x = "primarysourcecountry", y = "patient.patientweight",  order=["US", "CA", "GB", "JP", "CN"], kind="violin", bw_method=0.5, hue="serious") 
+sns.stripplot(data=df, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], s=3, ax=V.ax) 
+plt.title("Violin Scatter Plot: Relationship between Country and Patient Weight showing Serious Cases")  
 
     # h) 1 bar plot representing 3 variables showing 97% confidence intervals 
-sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight",  order=["US", "CA", "GB", "JP", "CN"], errorbar=("pi",97), kind="bar", hue="serious") 
-plt.title("Bar Plot: Reporter Qualification vs Time Report Received by Serioussness")  
+sns.catplot(data=df, x = "primarysourcecountry", y = "patient.patientweight",  order=["US", "CA", "GB", "JP", "CN"], errorbar=("pi",97), kind="bar", hue="serious") 
+plt.title("Bar Plot: Relationship between Country and Patient Weight showing Serious Cases")  
 
     # i) 1 point plot representing 3 variables showing 90% confidence intervals and lines in dashed style 
-sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], errorbar=("pi",90), kind="point", hue="serious", linestyle=["--","--"]) 
-plt.title("Point Plot: Reporter Qualification vs Time Report Received by Serioussness")  
+sns.catplot(data=df, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], errorbar=("pi",90), kind="point", hue="serious", linestyle=["--","--"]) 
+plt.title("Point Plot: Relationship between Country and Patient Weight showing Serious Cases")  
 
     # j) 1 bar plot showing the number of observations in each category 
-sns.catplot(data=reduced_dataset, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], kind="bar", hue="serious", legend="full") 
-plt.title("Bar Plot Observations: Reporter Qualification vs Time Report Received by Serioussness")  
+sns.catplot(data=df, x = "primarysourcecountry", y = "patient.patientweight", order=["US", "CA", "GB", "JP", "CN"], kind="bar", hue="serious", legend="full") 
+plt.title("Bar Plot Observations: Relationship between Country and Patient Weight showing Serious Cases")  
     
     
     
 # 6.3. Visualizing Bivariate Distributions (3 plots):
-    #ANSWERING: Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
-
+    #ANSWERING: Exploring what patients are being tested with the only two numerical colums of the dataset, patient weight and age.
     
     # a) 1 "heatmap" plot representing 2 variables with colour intensity bar and adjusted bin width
-sns.displot(data=reduced_dataset, x = "primarysourcecountry", y = "serious", order=["US", "CA", "GB", "JP", "CN"], binwidth=0.5)
+sns.displot(data=df, x = "patient.patientweight", y = "patient.patientonsetage", binwidth=(1,0.5), hue="patient.patientsex")
 plt.title("Heatmap: Frequency of Serious Cases in each Country")
     
     # b) 1 distribution plot with 2 variables making use of bivariate density contours with amount of curves and its lowest level adjusted (use a kernel density estimation displot())
-sns.displot(data=reduced_dataset, x = "primarysourcecountry", y = "serious", order=["US", "CA", "GB", "JP", "CN"], kind="kde")
+sns.displot(data=df, x = "patient.patientweight", y = "patient.patientonsetage", kind="kde")
 plt.title("2D Density Heatmap: Frequency of Serious Cases in each Country")
     
     # c) 1 "heatmap" plot representing 3 variables, again of kind kde
+<<<<<<< Updated upstream
 sns.displot(data=reduced_dataset, x = "primarysourcecountry", y = "serious", order=["US", "CA", "GB", "JP", "CN"], kind="kde", hue="patient.patientsex")
 plt.title("2D Density Heatmap: Frequency of Serious Cases in each Country by Patient Sexe")
+=======
+sns.displot(data=df, x = "patient.patientweight", y = "patient.patientonsetage", kind="kde", hue="serious")
+plt.title("2D Density Heatmap: Frequency of Serious Cases in each Country by Patient Sexe")
+>>>>>>> Stashed changes
