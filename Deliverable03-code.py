@@ -259,7 +259,7 @@ for col in num_cols_for_histogram:
     plt.suptitle("Age-Weight-Seriousness-Hospitalization by Sex", y=1.1)
     
     # c) A plot using line instead of points (find a variable that makes sense emphasizing continuity and explain why)
-    sns.lineplot(data=df, x="patient.patientonsetage", y="patient.patientweight", errorbar=None)
+    sns.relplot(data=df, x="patient.patientonsetage", y="patient.patientweight", kind='line', errorbar=None)
     plt.xlabel("Patient Onset Age")
     plt.ylabel("Patient Weight")
     plt.title("Mean Patient Weight Across Age (Continuous Relationship)")
