@@ -347,17 +347,13 @@ plt.title("Bar Plot Observations: Relationship between Country and Patient Weigh
     
     # a) 1 "heatmap" plot representing 2 variables with colour intensity bar and adjusted bin width
 sns.displot(data=df, x = "patient.patientweight", y = "patient.patientonsetage", binwidth=(1,0.5), hue="patient.patientsex")
-plt.title("Heatmap: Frequency of Serious Cases in each Country")
+plt.title("Heatmap: Similarity between Patient Weight and Age by Sex")
     
     # b) 1 distribution plot with 2 variables making use of bivariate density contours with amount of curves and its lowest level adjusted (use a kernel density estimation displot())
 sns.displot(data=df, x = "patient.patientweight", y = "patient.patientonsetage", kind="kde")
-plt.title("2D Density Heatmap: Frequency of Serious Cases in each Country")
+plt.title("2D Density Heatmap: Similarity between Patient Weight and Age ")
     
     # c) 1 "heatmap" plot representing 3 variables, again of kind kde
-<<<<<<< Updated upstream
-sns.displot(data=reduced_dataset, x = "primarysourcecountry", y = "serious", order=["US", "CA", "GB", "JP", "CN"], kind="kde", hue="patient.patientsex")
-plt.title("2D Density Heatmap: Frequency of Serious Cases in each Country by Patient Sexe")
-=======
+
 sns.displot(data=df, x = "patient.patientweight", y = "patient.patientonsetage", kind="kde", hue="serious")
-plt.title("2D Density Heatmap: Frequency of Serious Cases in each Country by Patient Sexe")
->>>>>>> Stashed changes
+plt.title("2D Density Heatmap: Similarity between Patient Weight and Age by Severity")
