@@ -10,18 +10,12 @@
     #see pt4
 # 2. How do patient weight distributions differ between patients who experienced serious vs. non-serious reactions?
     #see pt4
-    
-# 3. Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
-# 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
-# 5. Are there differences in the types of adverse reactions reported by males and females?
-
-#<<<<<<< HEAD
   
 # 3. Are certain types of serious outcomes (hospitalization, life-threatening events, death) reported more frequently in specific countries?
 # 4. Do reporting delays differ depending on the reporter’s professional role (e.g., physician, pharmacist, consumer)?
 # 5. Are there differences in the types of adverse reactions reported by males and females?
 
-#==========
+
     # ===================== Importing Modules =====================
 
 import json
@@ -161,10 +155,6 @@ for col in categorical_cols:
     print("NUMBER OF UNIQUE CATEGORIES:", df[col].nunique())
     print('------------------------------------------------------')
    
-   
-#<<<<<<< HEAD
- # =============================================================================================================================================================================================       
-#=======
     
 # =============================================================================================================================================================================================       
 # 4. UNIVARIATE GRAPHICAL EDA
@@ -355,5 +345,5 @@ plt.title("2D Density Heatmap: Similarity between Patient Weight and Age ")
     
     # c) 1 "heatmap" plot representing 3 variables, again of kind kde
 
-sns.displot(data=df, x = "patient.patientweight", y = "patient.patientonsetage", kind="kde", hue="serious")
-plt.title("2D Density Heatmap: Similarity between Patient Weight and Age by Severity")
+sns.displot(data=df, x = "patient.patientweight", y = "patient.patientonsetage", kind="kde", hue="patient.patientsex")
+plt.title("2D Density Heatmap: Similarity between Patient Weight and Age by Sex")
